@@ -28,7 +28,7 @@ class cLEDMatrixBase
 
   public:
     cLEDMatrixBase();
-    virtual uint16_t mXY(uint16_t x, uint16_t y)=0;
+    virtual uint32_t mXY(uint16_t x, uint16_t y)=0;
     void SetLEDArray(struct CRGB *pLED);	// Only used with externally defined LED arrays
 
     struct CRGB *operator[](int n);
@@ -72,8 +72,10 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
       m_Height = m_absMHeight * m_absBHeight;
       if (doMalloc) {
 	  // On ESP32, there is more memory available via malloc than static global arrays
-          p_LED = (struct CRGB *) malloc(m_absMWidth * m_absBWidth * m_absMHeight * m_absBHeight * sizeof(CRGB));
-          m_LED = p_LED;
+	  uint32_t mallocsize = m_absMWidth * m_absBWidth * m_absMHeight * m_absBHeight * sizeof(CRGB);
+	  p_LED = (struct CRGB *) malloc(mallocsize);
+	  memset(p_LED, 0, mallocsize);
+	  m_LED = p_LED;
 	  if (! p_LED) {
 	     Serial.begin(115200);
 	     Serial.println("Malloc LEDMatrix Failed");
@@ -88,7 +90,7 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
       p_LED = pLED;
       m_LED = pLED;
     }
-    virtual uint16_t mXY(uint16_t x, uint16_t y)
+    virtual uint32_t mXY(uint16_t x, uint16_t y)
     {
 			if ((tBWidth == 1) && (tBHeight == 1))
 			{
