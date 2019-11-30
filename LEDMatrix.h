@@ -74,13 +74,14 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
 	  // On ESP32, there is more memory available via malloc than static global arrays
 	  uint32_t mallocsize = m_absMWidth * m_absBWidth * m_absMHeight * m_absBHeight * sizeof(CRGB);
 	  p_LED = (struct CRGB *) malloc(mallocsize);
-	  memset(p_LED, 0, mallocsize);
 	  m_LED = p_LED;
 	  if (! p_LED) {
 	     Serial.begin(115200);
-	     Serial.println("Malloc LEDMatrix Failed");
+	     Serial.print("Malloc LEDMatrix Failed. Bytes requested: ");
+	     Serial.println(mallocsize);
 	     while (1);
 	  }
+	  memset(p_LED, 0, mallocsize);
       } else {
 	  Serial.println("LED array not intialized, must be set by SetLEDArray");
       }
