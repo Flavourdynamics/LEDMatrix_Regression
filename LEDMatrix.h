@@ -75,6 +75,11 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
 	  uint32_t mallocsize = m_absMWidth * m_absBWidth * m_absMHeight * m_absBHeight * sizeof(CRGB);
 	  p_LED = (struct CRGB *) malloc(mallocsize);
 	  m_LED = p_LED;
+#ifdef ESP32
+	  printf("LEDMatrix malloc\n");
+	  printf("Heap/32-bit Memory Available     : %6d bytes total, %6d bytes largest free block\n", heap_caps_get_free_size(0), heap_caps_get_largest_free_block(0));
+	  printf("8-bit/malloc/DMA Memory Available: %6d bytes total, %6d bytes largest free block\n", heap_caps_get_free_size(MALLOC_CAP_DMA), heap_caps_get_largest_free_block(MALLOC_CAP_DMA));
+#endif
 	  if (! p_LED) {
 	     Serial.begin(115200);
 	     Serial.print("Malloc LEDMatrix Failed. Bytes requested: ");
@@ -86,10 +91,10 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
 	  Serial.println("LED array not intialized, must be set by SetLEDArray");
       }
     }
-    void SetLEDArray(struct CRGB *pLED)
+    void SetLEDArray(struct CRGB *p)
     {
-      p_LED = pLED;
-      m_LED = pLED;
+      p_LED = p;
+      m_LED = p;
     }
     virtual uint32_t mXY(uint16_t x, uint16_t y)
     {
