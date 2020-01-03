@@ -88,7 +88,10 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
 	  }
 	  memset(p_LED, 0, mallocsize);
       } else {
-	  Serial.println("LED array not intialized, must be set by SetLEDArray");
+#ifndef ARDUINOONPC
+         // this crashes when not compiled with arduino (because it runs at global scope?)
+         Serial.println("LED array not intialized, must be set by SetLEDArray");
+#endif
       }
     }
     void SetLEDArray(struct CRGB *p)
