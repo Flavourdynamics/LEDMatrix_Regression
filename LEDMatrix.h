@@ -373,20 +373,20 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
   	// Optimised functions used by ShiftLeft & ShiftRight in non block mode
     void HPWSL(void)
     {
-      int16_t i = 0;
+      uint32_t i = 0;
       for (int16_t y=m_absMHeight; y>0; --y,++i)
       {
-        for (int16_t x=m_absMWidth-1; x>0; --x,++i)
+        for (uint16_t x=m_absMWidth-1; x>0; --x,++i)
           p_LED[i] = p_LED[i + 1];
         p_LED[i] = CRGB(0, 0, 0);
       }
     }
     void HNWSL(void)
     {
-      int16_t i = m_absMWidth - 1;
+      uint32_t i = m_absMWidth - 1;
       for (int16_t y=m_absMHeight; y>0; --y)
       {
-        for (int16_t x=m_absMWidth-1; x>0; --x,--i)
+        for (uint16_t x=m_absMWidth-1; x>0; --x,--i)
           p_LED[i] = p_LED[i - 1];
         p_LED[i] = CRGB(0, 0, 0);
         i += ((m_absMWidth * 2) - 1);
@@ -394,9 +394,9 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
     }
     void VPWSL(void)
     {
-      int16_t i = 0;
-      int16_t j = m_absMHeight;
-      for (int16_t x=m_absMWidth-1; x>0; --x)
+      uint32_t i = 0;
+      uint32_t j = m_absMHeight;
+      for (uint16_t x=m_absMWidth-1; x>0; --x)
       {
         for (int16_t y=m_absMHeight; y>0; --y)
           p_LED[i++] = p_LED[j++];
@@ -406,9 +406,9 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
     }
     void VNWSL(void)
     {
-      int16_t i = (m_absMHeight * m_absMWidth) - 1;
-      int16_t j = i - m_absMHeight;
-      for (int16_t x=m_absMWidth-1; x>0; --x)
+      uint32_t i = (m_absMHeight * m_absMWidth) - 1;
+      uint32_t j = i - m_absMHeight;
+      for (uint16_t x=m_absMWidth-1; x>0; --x)
       {
         for (int16_t y=m_absMHeight; y>0; --y)
           p_LED[i--] = p_LED[j--];
@@ -418,17 +418,17 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
     }
     void HZPWSL(void)
     {
-      int16_t i = 0;
+      uint32_t i = 0;
       for (int16_t y=m_absMHeight; y>0; y-=2)
       {
-        for (int16_t x=m_absMWidth-1; x>0; --x,++i)
+        for (uint16_t x=m_absMWidth-1; x>0; --x,++i)
           p_LED[i] = p_LED[i + 1];
         p_LED[i] = CRGB(0, 0, 0);
         i++;
         if (y > 1)
         {
           i += (m_absMWidth - 1);
-          for (int16_t x=m_absMWidth-1; x>0; --x,--i)
+          for (uint16_t x=m_absMWidth-1; x>0; --x,--i)
             p_LED[i] = p_LED[i - 1];
           p_LED[i] = CRGB(0, 0, 0);
           i += m_absMWidth;
@@ -437,16 +437,16 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
     }
     void HZNWSL(void)
     {
-      int16_t i = m_absMWidth - 1;
+      uint32_t i = m_absMWidth - 1;
       for (int16_t y=m_absMHeight; y>0; y-=2)
       {
-        for (int16_t x=m_absMWidth-1; x>0; --x,--i)
+        for (uint16_t x=m_absMWidth-1; x>0; --x,--i)
           p_LED[i] = p_LED[i - 1];
         p_LED[i] = CRGB(0, 0, 0);
         if (y > 1)
         {
           i += m_absMWidth;
-          for (int16_t x=m_absMWidth-1; x>0; --x,++i)
+          for (uint16_t x=m_absMWidth-1; x>0; --x,++i)
             p_LED[i] = p_LED[i + 1];
           p_LED[i] = CRGB(0, 0, 0);
           i += m_absMWidth;
@@ -455,9 +455,9 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
     }
     void VZPWSL(void)
     {
-      int16_t i = 0;
-      int16_t j = (m_absMHeight * 2) - 1;
-      for (int16_t x=m_absMWidth-1; x>0; x-=2)
+      uint32_t i = 0;
+      uint32_t j = (m_absMHeight * 2) - 1;
+      for (uint16_t x=m_absMWidth-1; x>0; x-=2)
       {
         for (int16_t y=m_absMHeight; y>0; --y)
           p_LED[i++] = p_LED[j--];
@@ -474,9 +474,9 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
     }
     void VZNWSL(void)
     {
-      int16_t i = (m_absMHeight * m_absMWidth) - 1;
-      int16_t j = m_absMHeight * (m_absMWidth - 2);
-      for (int16_t x=m_absMWidth-1; x>0; x-=2)
+      uint32_t i = (m_absMHeight * m_absMWidth) - 1;
+      uint32_t j = m_absMHeight * (m_absMWidth - 2);
+      for (uint16_t x=m_absMWidth-1; x>0; x-=2)
       {
         for (int16_t y=m_absMHeight; y>0; --y)
           p_LED[i--] = p_LED[j++];
@@ -495,44 +495,44 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
   	// Optimised functions used by ShiftDown & ShiftUp in non block mode
     void HPHSD(void)
     {
-      int16_t i = 0;
-      int16_t j = m_absMWidth;
-      for (int16_t y=m_absMHeight-1; y>0; --y)
+      uint32_t i = 0;
+      uint32_t j = m_absMWidth;
+      for (uint16_t y=m_absMHeight-1; y>0; --y)
       {
-        for (int16_t x=m_absMWidth; x>0; --x)
+        for (uint16_t x=m_absMWidth; x>0; --x)
           p_LED[i++] = p_LED[j++];
       }
-      for (int16_t x=m_absMWidth; x>0; --x)
+      for (uint16_t x=m_absMWidth; x>0; --x)
         p_LED[i++] = CRGB(0, 0, 0);
     }
     void HNHSD(void)
     {
-      int16_t i = (m_absMWidth * m_absMHeight) - 1;
-      int16_t j = i - m_absMWidth;
-      for (int16_t y=m_absMHeight-1; y>0; --y)
+      uint32_t i = (m_absMWidth * m_absMHeight) - 1;
+      uint32_t j = i - m_absMWidth;
+      for (uint16_t y=m_absMHeight-1; y>0; --y)
       {
-        for (int16_t x=m_absMWidth; x>0; --x)
+        for (uint16_t x=m_absMWidth; x>0; --x)
           p_LED[i--] = p_LED[j--];
       }
-      for (int16_t x=m_absMWidth; x>0; --x)
+      for (uint16_t x=m_absMWidth; x>0; --x)
         p_LED[i--] = CRGB(0, 0, 0);
     }
     void VPHSD(void)
     {
-      int16_t i = 0;
-      for (int16_t x=m_absMWidth; x>0; --x,++i)
+      uint32_t i = 0;
+      for (uint16_t x=m_absMWidth; x>0; --x,++i)
       {
-        for (int16_t y=m_absMHeight-1; y>0; --y,++i)
+        for (uint16_t y=m_absMHeight-1; y>0; --y,++i)
           p_LED[i] = p_LED[i + 1];
         p_LED[i] = CRGB(0, 0, 0);
       }
     }
     void VNHSD(void)
     {
-      int16_t i = m_absMHeight - 1;
-      for (int16_t x=m_absMWidth; x>0; --x)
+      uint32_t i = m_absMHeight - 1;
+      for (uint16_t x=m_absMWidth; x>0; --x)
       {
-        for (int16_t y=m_absMHeight-1; y>0; --y,--i)
+        for (uint16_t y=m_absMHeight-1; y>0; --y,--i)
           p_LED[i] = p_LED[i - 1];
         p_LED[i] = CRGB(0, 0, 0);
         i += ((m_absMHeight * 2) - 1);
@@ -540,55 +540,55 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
     }
     void HZPHSD(void)
     {
-      int16_t i = 0;
-      int16_t j = (m_absMWidth * 2) - 1;
-      for (int16_t y=m_absMHeight-1; y>0; y-=2)
+      uint32_t i = 0;
+      uint32_t j = (m_absMWidth * 2) - 1;
+      for (uint16_t y=m_absMHeight-1; y>0; y-=2)
       {
-        for (int16_t x=m_absMWidth; x>0; --x)
+        for (uint16_t x=m_absMWidth; x>0; --x)
           p_LED[i++] = p_LED[j--];
         if (y > 1)
         {
           j += (m_absMWidth * 2);
-          for (int16_t x=m_absMWidth; x>0; --x)
+          for (uint16_t x=m_absMWidth; x>0; --x)
             p_LED[i++] = p_LED[j--];
           j += (m_absMWidth * 2);
         }
       }
-      for (int16_t x=m_absMWidth; x>0; x--)
+      for (uint16_t x=m_absMWidth; x>0; x--)
         p_LED[i++] = CRGB(0, 0, 0);
     }
     void HZNHSD(void)
     {
-      int16_t i = (m_absMWidth * m_absMHeight) - 1;
-      int16_t j = m_absMWidth * (m_absMHeight - 2);
-      for (int16_t y=m_absMHeight-1; y>0; y-=2)
+      uint32_t i = (m_absMWidth * m_absMHeight) - 1;
+      uint32_t j = m_absMWidth * (m_absMHeight - 2);
+      for (uint16_t y=m_absMHeight-1; y>0; y-=2)
       {
-        for (int16_t x=m_absMWidth; x>0; --x)
+        for (uint16_t x=m_absMWidth; x>0; --x)
           p_LED[i--] = p_LED[j++];
         if (y > 1)
         {
           j -= (m_absMWidth * 2);
-          for (int16_t x=m_absMWidth; x>0; --x)
+          for (uint16_t x=m_absMWidth; x>0; --x)
             p_LED[i--] = p_LED[j++];
           j -= (m_absMWidth * 2);
         }
       }
-      for (int16_t x=m_absMWidth; x>0; x--)
+      for (uint16_t x=m_absMWidth; x>0; x--)
         p_LED[i--] = CRGB(0, 0, 0);
     }
     void VZPHSD(void)
     {
-      int16_t i = 0;
-      for (int16_t x=m_absMWidth; x>0; x-=2)
+      uint32_t i = 0;
+      for (uint16_t x=m_absMWidth; x>0; x-=2)
       {
-        for (int16_t y=m_absMHeight-1; y>0; --y,++i)
+        for (uint16_t y=m_absMHeight-1; y>0; --y,++i)
           p_LED[i] = p_LED[i + 1];
         p_LED[i] = CRGB(0, 0, 0);
         i++;
         if (x > 1)
         {
           i += (m_absMHeight - 1);
-          for (int16_t y=m_absMHeight-1; y>0; --y,--i)
+          for (uint16_t y=m_absMHeight-1; y>0; --y,--i)
             p_LED[i] = p_LED[i - 1];
           p_LED[i] = CRGB(0, 0, 0);
           i += m_absMHeight;
@@ -597,16 +597,16 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
     }
     void VZNHSD(void)
     {
-      int16_t i = m_absMHeight - 1;
-      for (int16_t x=m_absMWidth; x>0; x-=2)
+      uint32_t i = m_absMHeight - 1;
+      for (uint16_t x=m_absMWidth; x>0; x-=2)
       {
-        for (int16_t y=m_absMHeight-1; y>0; --y,--i)
+        for (uint16_t y=m_absMHeight-1; y>0; --y,--i)
           p_LED[i] = p_LED[i - 1];
         p_LED[i] = CRGB(0, 0, 0);
         if (x > 1)
         {
           i += m_absMHeight;
-          for (int16_t y=m_absMHeight-1; y>0; --y,++i)
+          for (uint16_t y=m_absMHeight-1; y>0; --y,++i)
             p_LED[i] = p_LED[i + 1];
           p_LED[i] = CRGB(0, 0, 0);
           i += m_absMHeight;
