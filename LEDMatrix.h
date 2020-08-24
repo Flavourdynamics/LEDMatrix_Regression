@@ -86,7 +86,7 @@ template<int16_t tMWidth, int16_t tMHeight, MatrixType_t tMType, int8_t tBWidth 
 	     Serial.println(mallocsize);
 	     while (1);
 	  }
-	  memset(p_LED, 0, mallocsize);
+          memset((void *)p_LED, 0, mallocsize);
       } else {
 #ifndef ARDUINOONPC
          // this crashes when not compiled with arduino (because it runs at global scope?)
