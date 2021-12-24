@@ -109,12 +109,12 @@ void cLEDMatrixBase::TriangleTopMirror(bool FullHeight)
   for (y=1; y<=MaxXY; ++y)
   {
     for (x=0; x<y; ++x)
-      m_LED[mXY(y,x)] = m_LED[mXY(x,y)];
+      ARtarg[XY(y,x)] = ARtarg[XY(x,y)];
   }
 }
 
 
-void cLEDMatrixBase::TriangleBottomMirror(bool FullHeight)
+void cLEDMatrixBase::TriangleBottomMirror(bool FullHeight, CRGB *ARtarg)
 {
   int MaxXY, x, y, xx, yy;
 
@@ -127,7 +127,7 @@ void cLEDMatrixBase::TriangleBottomMirror(bool FullHeight)
   for (y=0,xx=MaxXY; y<MaxXY; y++,xx--)
   {
     for (x=MaxXY-y-1,yy=y+1; x>=0; --x,++yy)
-      m_LED[mXY(xx, yy)] = m_LED[mXY(x, y)];
+      ARtarg[mXY(xx, yy)] = m_LED[mXY(x, y)];
   }
 }
 
@@ -145,11 +145,11 @@ void cLEDMatrixBase::QuadrantBottomTriangleMirror()
   QuadrantMirror();
 }
 
-void cLEDMatrixBase::DrawPixel(int16_t x, int16_t y, CRGB Col) {
-  DrawLine(x, y, x, y, Col);
+void cLEDMatrixBase::DrawPixel(int16_t x, int16_t y, CRGB Col, CRGB *ARtarg) {
+  DrawLine(x, y, x, y, Col, ARtarg);
 }
 
-void cLEDMatrixBase::DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, CRGB Col)
+void cLEDMatrixBase::DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, CRGB Col, CRGB *ARtarg)
 {
   int16_t dx = x1 - x0;
   int16_t dy = y1 - y0;
@@ -164,12 +164,12 @@ void cLEDMatrixBase::DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, CR
       if (dx >= 0)
       {
         for (; x0<=x1; ++x0,y+=f)
-          (*this)(x0, (y >> 16)) = Col;
+          ARtarg[XY(x0, (y >> 16)] = Col;
       }
       else
       {
         for (; x0>=x1; --x0,y+=f)
-          (*this)(x0, (y >> 16)) = Col;
+          ARtarg[XY(x0, (y >> 16)] = Col;
       }
     }
   }
@@ -180,18 +180,18 @@ void cLEDMatrixBase::DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, CR
     if (dy >= 0)
     {
       for (; y0<=y1; ++y0,x+=f)
-        (*this)((x >> 16), y0) = Col;
+        ARtarg[XY((x >> 16), y0)] = Col;
     }
     else
     {
       for (; y0>=y1; --y0,x+=f)
-        (*this)((x >> 16), y0) = Col;
+        ARtarg[XY((x >> 16), y0)] = Col;
     }
   }
 }
 
 
-void cLEDMatrixBase::DrawRectangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, CRGB Col)
+void cLEDMatrixBase::DrawRectangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, CRGB Col, CRGB *ARtarget)
 {
   DrawLine(x0, y0, x0, y1, Col);
   DrawLine(x0, y1, x1, y1, Col);
@@ -200,7 +200,7 @@ void cLEDMatrixBase::DrawRectangle(int16_t x0, int16_t y0, int16_t x1, int16_t y
 }
 
 
-void cLEDMatrixBase::DrawCircle(int16_t xc, int16_t yc, uint16_t r, CRGB Col)
+void cLEDMatrixBase::DrawCircle(int16_t xc, int16_t yc, uint16_t r, CRGB Col, CRGB *ARtarget)
 {
   int16_t x = -r;
   int16_t y = 0;

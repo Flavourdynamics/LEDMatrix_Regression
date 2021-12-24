@@ -5,7 +5,9 @@
 [![GitHub version](https://img.shields.io/github/release/Jorgen-VikingGod/LEDMatrix.svg)](https://github.com/Jorgen-VikingGod/LEDMatrix/releases/latest) 
 [![FastLED dependencies](https://img.shields.io/badge/dependencies-FastLED-blue.svg)](https://github.com/FastLED/FastLED) 
 
-> A fork of ([cLEDMatrix](https://github.com/AaronLiddiment/LEDMatrix) by [Aaron Liddiment](https://github.com/AaronLiddiment)) and build in some features from ([Adafruit-NeoMatrix](https://github.com/adafruit/Adafruit_NeoMatrix))
+> A fork of https://github.com/marcmerlin/LEDMatrix, which is a fork of ([cLEDMatrix](https://github.com/AaronLiddiment/LEDMatrix) by [Aaron Liddiment](https://github.com/AaronLiddiment)) and build in some features from ([Adafruit-NeoMatrix](https://github.com/adafruit/Adafruit_NeoMatrix))
+
+The goal here is to mutilate these functions so they are easier to use at global scope.
 
 Once you have downloaded the Zip file, it should be extracted into your Arduino Libraries folder and the folder renamed to "LEDMatrix".
 
